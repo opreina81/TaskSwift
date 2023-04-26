@@ -1,0 +1,169 @@
+import Foundation
+class Shape{
+     
+  func  calculateArea()-> Double {
+       fatalError("init(coder:) has not been implemented")
+      }
+  
+  func  calculatePerimeter() -> Double{
+         fatalError("init(coder:) has not been implemented")
+      }
+}
+
+enum SideError: Error {
+ case lessThanZero
+}   
+
+
+
+class Rectangle:Shape {
+     
+private let height: Double
+private let wight: Double
+    
+  init(height: Double, wight: Double) throws {
+  if ((height <= 0) || (wight <=  0)) { throw SideError.lessThanZero}        
+        self.height = height
+        self.wight = wight
+    }
+ 
+  override  func calculateArea() -> Double {
+      
+    return height*wight
+ }
+  
+  override func  calculatePerimeter() -> Double {
+       
+    return 2*(height*wight) 
+  }
+  
+}
+
+
+
+class Circle: Shape {
+     
+private let radius: Double
+static let pi: Double = 3.14
+    
+  init(radius: Double) throws {
+    if radius <= 0 { throw SideError.lessThanZero}     
+        self.radius = radius
+    }
+  
+override  func calculateArea() -> Double {
+         
+        return Circle.pi*pow(radius, 2)
+    }
+  
+override func  calculatePerimeter() -> Double{
+    
+         return 2*Circle.pi*radius
+    }
+}
+
+
+
+class Square: Shape {
+  
+private let side: Double
+   
+  init(side: Double)  throws {
+      
+    if side <= 0 { throw SideError.lessThanZero}
+         
+           self.side = side
+    }
+  
+override  func calculateArea() -> Double {
+     
+         return side*side
+  }
+        
+override func  calculatePerimeter() -> Double{
+   
+    return side+side+side+side
+  }
+  
+}
+
+
+do {
+  
+var sumArea=0.0
+var sumPerimeter=0.0
+let squareArray = try Square(side: 2.0) 
+let circleArray = try Circle(radius: 2.0)
+let rectangleArray = try Rectangle(height: 2.0, wight: 3.0)
+var shapes = [Shape]()
+shapes.append(squareArray)
+shapes.append(circleArray)
+shapes.append(rectangleArray)
+
+for data in shapes {
+  sumArea += data.calculateArea()
+   sumPerimeter += data.calculatePerimeter()
+  } 
+  print("Сумма площадей фигур: \(sumArea)")
+  print("Сумма периметров фигур: \(sumPerimeter)")
+  print()
+}
+  catch SideError.lessThanZero {
+    
+  print("Значение должно быть больше нуля")
+}
+
+
+
+do {
+  
+let square: Square =  try  Square(side: 2.0) 
+
+print("Площадь квадрата: \(square.calculateArea())")
+print("Периметр квадрата: \(square.calculatePerimeter())")
+print()  
+}
+catch SideError.lessThanZero {
+    
+  print("Значение должно быть больше нуля")
+}
+
+
+do {
+
+let circle: Circle = try Circle(radius: 2.0)
+
+print("Площадь круга: \(circle.calculateArea())")  
+print("Длина окружности: \(circle.calculatePerimeter())") 
+print()  
+}
+catch SideError.lessThanZero {
+    
+  print("Значение должно быть больше нуля")
+}
+
+
+do {
+  
+let rectangle: Rectangle = try Rectangle(height: 2.0, wight: 3.0)
+
+print("Площадь прямоугольника: \(rectangle.calculateArea() )")  
+print("Периметр прямоугольника: \(rectangle.calculatePerimeter())")  
+
+}
+catch SideError.lessThanZero {
+    
+  print("Значение должно быть больше нуля")
+}
+    
+
+
+ 
+ 
+ 
+ 
+
+
+
+
+
