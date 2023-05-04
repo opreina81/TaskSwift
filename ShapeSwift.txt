@@ -2,11 +2,11 @@ import Foundation
 class Shape{
      
   func  calculateArea()-> Double {
-       fatalError("init(coder:) has not been implemented")
+       fatalError("not implemented")
       }
   
   func  calculatePerimeter() -> Double{
-         fatalError("init(coder:) has not been implemented")
+     fatalError("not implemented")
       }
 }
 
@@ -34,7 +34,7 @@ private let wight: Double
   
   override func  calculatePerimeter() -> Double {
        
-    return 2*(height*wight) 
+    return 2*(height+wight) 
   }
   
 }
@@ -44,7 +44,7 @@ private let wight: Double
 class Circle: Shape {
      
 private let radius: Double
-static let pi: Double = 3.14
+
     
   init(radius: Double) throws {
     if radius <= 0 { throw SideError.lessThanZero}     
@@ -53,12 +53,12 @@ static let pi: Double = 3.14
   
 override  func calculateArea() -> Double {
          
-        return Circle.pi*pow(radius, 2)
+        return Double.pi*pow(radius, 2)
     }
   
 override func  calculatePerimeter() -> Double{
     
-         return 2*Circle.pi*radius
+         return 2*Double.pi*radius
     }
 }
 
@@ -95,10 +95,7 @@ var sumPerimeter=0.0
 let squareArray = try Square(side: 2.0) 
 let circleArray = try Circle(radius: 2.0)
 let rectangleArray = try Rectangle(height: 2.0, wight: 3.0)
-var shapes = [Shape]()
-shapes.append(squareArray)
-shapes.append(circleArray)
-shapes.append(rectangleArray)
+let shapes: [Shape] = [squareArray, circleArray, rectangleArray]
 
 for data in shapes {
   sumArea += data.calculateArea()
@@ -141,29 +138,6 @@ catch SideError.lessThanZero {
     
   print("Значение должно быть больше нуля")
 }
-
-
-do {
-  
-let rectangle: Rectangle = try Rectangle(height: 2.0, wight: 3.0)
-
-print("Площадь прямоугольника: \(rectangle.calculateArea() )")  
-print("Периметр прямоугольника: \(rectangle.calculatePerimeter())")  
-
-}
-catch SideError.lessThanZero {
-    
-  print("Значение должно быть больше нуля")
-}
-    
-
-
- 
- 
- 
- 
-
-
 
 
 
